@@ -5,6 +5,7 @@ class Game {
     // we know the game will have several obstacles throughout its existence, so we make an array
     this.obstacles = [];
     this.background = new Background();
+    this.rain = [];
   }
 
   preload() {
@@ -32,6 +33,17 @@ class Game {
       return obstacle.left >= -obstacle.width;
     });
   }
+  if (frameCount % 75 === 0) {
+    // if (frameCount % 180 === 0) {
+    this.rain.push(new Rain());
+  }
+
+  this.rain = this.rain.filter((rain) => {
+    rain.drawRain();
+
+    return rain.top >= rain.height;
+  });
+}
 
   keyPressed() {
     this.player.keyPressed();
